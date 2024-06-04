@@ -7,16 +7,21 @@
     </template>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <!-- Search -->
-      <div class="mb-2">
+      <div class="mb-2 flex items-center">
         <form action="" class="relative mx-auto w-max bg-white rounded-full border">
           <input v-model="search" type="search" placeholder="Ingrese texto a buscar"
-            class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-blue-300 focus:pl-16 focus:pr-4" />
+            class=" peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-blue-300 focus:pl-16 focus:pr-4" />
           <svg xmlns="http://www.w3.org/2000/svg"
             class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-gray-500 px-3.5 peer-focus:border-blue-300 peer-focus:stroke-blue-500"
             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </form>
+        <!-- Create -->
+        <Link :href="route('contacts.create')"
+          class="flex-shrink-0 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+        <span><i class="fa-solid fa-plus"></i> Nuevo</span>
+        </Link>
       </div>
       <!-- table -->
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -93,11 +98,13 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Shared/Pagination.vue';
 import pickBy from 'lodash/pickBy';
+import { Link } from '@inertiajs/vue3';
 
 export default {
   components: {
     AppLayout,
-    Pagination
+    Pagination,
+    Link
   },
 
   data() {
