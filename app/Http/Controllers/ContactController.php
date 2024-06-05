@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
-use App\Http\Requests\UpdateContactRequest;
 use App\Models\Country;
 use App\Models\Organization;
 use Illuminate\Http\Request;
@@ -62,14 +61,36 @@ class ContactController extends Controller
 
     public function edit(Contact $contact)
     {
-        return Inertia::render('Contacts/Edit', compact('contact'));
+        $organizations = Organization::all();
+        $countries = Country::all();
+
+        return Inertia::render('Contacts/Edit', compact('contact', 'organizations', 'countries'));
     }
 
-    public function update(UpdateContactRequest $request, Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
+        $data = $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'organization_id' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'country_id' => 'required',
+            'postal_code' => 'required'
+        ]);
+
+        $contact->update($data);
+
+        return redirect()->route('contacts.edit', $contact);
     }
 
     public function destroy(Contact $contact)
     {
+        $contact->delete();
+
+        return redirect()->route('contacts.index');
     }
 }
